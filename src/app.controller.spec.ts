@@ -15,6 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    
+    it('should return something', () => {
+      // Empty test case
+    });
   });
 });
