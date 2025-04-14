@@ -13,7 +13,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const secret = configService.get('JWT_SECRET') || 'default_secret_key';
     const jwtFromRequest = (req) => {
         const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
-        console.log('JWT Token:', token, 'Secret:', secret); // Log the token and secret for debugging purposes
         return token;
       };
     super({
@@ -24,7 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: any) {
+    
     // This method attaches user info to the request object.
-    return { userId: payload.email, username: payload.firstName };
+    return { ...payload};
   }
 }

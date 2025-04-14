@@ -17,7 +17,7 @@ This project is a backend application built using the [NestJS](https://nestjs.co
 The application provides the following routes and functionalities:
 
 #### Authentication Routes:
-- `GET /auth/google`: Validates the google token and sent back JWT token to frontend.
+- `GET /auth/google`: Validates the Google token and sends back a JWT token to the frontend.
 
 #### Post Management Routes:
 - `GET /posts`: Retrieves a list of all posts (public).
@@ -26,6 +26,10 @@ The application provides the following routes and functionalities:
 - `PUT /posts/:id`: Updates an existing post (requires authentication).
 - `DELETE /posts/:id`: Deletes a post (requires authentication).
 
+#### User Management Routes:
+- `GET /users/all`: Retrieves a list of all users.
+- `GET /users/posts`: Retrieves Post details of a specific user by their.
+
 ### 3. JWT Strategy
 - The `JwtStrategy` class is responsible for validating JWT tokens from incoming requests.
 - Extracts tokens from the `Authorization` header using the Bearer scheme.
@@ -33,6 +37,7 @@ The application provides the following routes and functionalities:
 
 ### 4. Database Integration
 - Uses **TypeORM** to interact with a PostgreSQL database hosted on Aiven.
+- The `User` entity defines the schema for storing user information.
 - The `Post` entity defines the schema for storing blog posts.
 - Connection details (host, port, credentials, SSL cert) are configured directly in `app.module.ts` and loaded from environment variables.
 
@@ -46,8 +51,8 @@ The application provides the following routes and functionalities:
 ### 6. CORS and Frontend Integration
 - **CORS** is enabled in `main.ts` to allow requests from the frontend (e.g., `http://localhost:4200`).
 - The backend handles Google login via the `GET /auth/google` route, which validates the Google token and generates a new JWT.
-- On successful login, the backend redirects users to the frontend with the newly generated JWT token in the respose.
-- The frontend can take and store the token (e.g., in `localStorage`) to authorize future requests.
+- On successful login, the backend redirects users to the frontend with the newly generated JWT token in the query string (`?token=...`).
+- The frontend can extract and store the token (e.g., in `localStorage`) to authorize future requests.
 
 ## Future Enhancements
 - **Role-Based Access Control (RBAC)**: Add user roles (e.g., admin, user) to restrict access to specific routes and actions.

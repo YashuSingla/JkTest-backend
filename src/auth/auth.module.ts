@@ -8,12 +8,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'user/entities/user.entity';
+import { Post } from 'posts/entities/post.entity/post.entity';
+import { UserService } from 'user/user.service';
 
 
 
 @Module({
   imports: [
     PassportModule,
+    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Post]),
     ConfigModule, // To load environment variables
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -25,6 +31,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, UserService],
 })
 export class AuthModule {}

@@ -10,8 +10,13 @@ export class AuthController {
   // ---------- Google OAuth2 Endpoints ----------
   @Post('google')
   async googleLogin(@Body('token') token: string) {
-    const user = await this.authService.verifyGoogleToken(token);
+    const profile = await this.authService.verifyGoogleToken(token);
+    
+    const user = await this.authService.loginWithGoogle(profile);
+    
+    
     const jwt = this.authService.generateJwt(user);
+    
     return { token: jwt };
   }
 }

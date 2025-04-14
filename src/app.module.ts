@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
+import { UserModule } from './user/user.module';
 import * as fs from 'fs';
 
 @Module({
@@ -30,6 +31,7 @@ import * as fs from 'fs';
     }),
     AuthModule,
     PostsModule,
+    UserModule,
   ],
 })
 export class AppModule {}

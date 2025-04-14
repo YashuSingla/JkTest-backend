@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+// src/posts/entities/post.entity.ts
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { User } from 'user/entities/user.entity';
 
 @Entity('posts')
 export class Post {
@@ -11,8 +20,8 @@ export class Post {
   @Column('text')
   content: string;
 
-  @Column({ nullable: false })
-  authorId: string;
+  @ManyToOne(() => User, (user) => user.posts, { eager: false, onDelete: 'CASCADE' })
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;
