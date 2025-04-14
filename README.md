@@ -52,7 +52,7 @@ This project is a **NestJS**-based backend application offering secure **Google 
 
 - Extracts token from `Authorization: Bearer <token>`.
 - Validates signature and expiration.
-- On success, attaches decoded payload (`userId`, `email`) to `req.user`.
+- On success, attaches decoded payload to `req.user`.
 
 > Uses Passport's `jwt` strategy internally within `JwtAuthGuard`.
 
@@ -87,7 +87,7 @@ This project is a **NestJS**-based backend application offering secure **Google 
 
 - CORS enabled (e.g., `http://localhost:4200`).
 - On successful auth:
-  - Backend redirects with token in query string `?token=...`.
+  - Backend redirects with token.
   - Frontend extracts and stores token (e.g., in `localStorage`).
 
 ---
