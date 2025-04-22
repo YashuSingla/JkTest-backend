@@ -4,6 +4,8 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto/update-post.dto';
 import { JwtAuthGuard } from 'auth/guards/jwt-auth/jwt-auth.guard';
+import {User} from '../user/entities/user.entity'
+import { Post } from './entities/post.entity/post.entity';
 
 describe('PostsController', () => {
   let controller: PostsController;
@@ -45,6 +47,17 @@ describe('PostsController', () => {
     expect(service.findAll).toHaveBeenCalled();
     expect(result).toEqual([mockPost]);
   });
+
+  it('should throw BadRequestException if user email is missing', async () => {
+    const reqMock = { user: {} };
+  
+    await expect(controller.getMyPosts(reqMock)).rejects.toThrow('Invalid token payload');
+  });
+
+  it('should throw BadRequestException for invalid id in findOne', async () => {
+    await expect(controller.findOne('abc')).rejects.toThrow('Invalid post ID');
+  });
+  
 
   it('should return a single post by id', async () => {
     const result = await controller.findOne('1');
