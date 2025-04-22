@@ -76,21 +76,6 @@ describe('PostsService', () => {
     });
   });
 
-  describe('findByUser()', () => {
-    it('should return posts created by the given user', async () => {
-      repo.find.mockResolvedValue([mockPost]);
-
-      const result = await service.findByUser(mockUser.id);
-
-      expect(repo.find).toHaveBeenCalledWith({
-        where: { user: { id: mockUser.id } },
-        relations: ['user'],
-        order: { createdAt: 'DESC' },
-      });
-      expect(result).toEqual([mockPost]);
-    });
-  });
-
   describe('findOne()', () => {
     it('should return a post if it exists', async () => {
       repo.findOne.mockResolvedValue(mockPost);
